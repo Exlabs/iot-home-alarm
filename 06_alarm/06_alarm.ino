@@ -1,20 +1,16 @@
 
-const int BUZZER = 2;
-const int REED_SWITCH = 5;
-
 void setup() {
-  pinMode(REED_SWITCH, INPUT);
-  pinMode(BUZZER, OUTPUT);
+  pinMode(2, OUTPUT);
+  pinMode(5, OUTPUT);
+  pinMode(21, INPUT);
 }
 
-
 void loop() {
-  int read_switch_state;
-  int door_opened;
-  while(1) {
-    read_switch_state = digitalRead(REED_SWITCH);
-    door_opened = abs(read_switch_state-1);
-    digitalWrite(BUZZER, door_opened);
-    delay(100);
-  }
+  digitalWrite(2, HIGH);
+  int button_state = digitalRead(21);
+  int door_opened = abs(1 - button_state);
+  digitalWrite(5, door_opened);  
+  delay(100);
+  digitalWrite(2, LOW);
+  delay(100);
 }
