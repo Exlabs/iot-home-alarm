@@ -1,21 +1,23 @@
-
-const int LED_OUTPUT = 2;
-const int BUZZER_OUTPUT = 4;
-const int REED_INPUT = 21;
-
+#define ARMED_SIGNAL_PIN 2
+#define ALARM_SIGNAL_PIN 5
+#define SENSOR_INPUT_PIN 21
 
 void setup() {
-  pinMode(LED_OUTPUT, OUTPUT);
-  pinMode(BUZZER_OUTPUT, OUTPUT);
-  pinMode(REED_INPUT, INPUT);
+  pinMode(ARMED_SIGNAL_PIN, OUTPUT);
+  pinMode(ALARM_SIGNAL_PIN, OUTPUT);
+  pinMode(SENSOR_INPUT_PIN, INPUT);
 }
 
 void loop() {
-  digitalWrite(LED_OUTPUT, HIGH);
-  int button_state = digitalRead(REED_INPUT);
-  int door_opened = abs(1 - button_state);
-  digitalWrite(BUZZER_OUTPUT, door_opened);  
+  // Determine if doors are open
+  int door_opened = digitalRead(SENSOR_INPUT_PIN);
+  
+  // Control alarm led
+  digitalWrite(ALARM_SIGNAL_PIN, door_opened);  
+  
+  // Blink armed signal led
+  digitalWrite(ARMED_SIGNAL_PIN, HIGH);
   delay(100);
-  digitalWrite(LED_OUTPUT, LOW);
+  digitalWrite(ARMED_SIGNAL_PIN, LOW);
   delay(100);
 }
