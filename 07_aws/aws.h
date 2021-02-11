@@ -72,5 +72,9 @@ void awsPublishMessage(String message)
   Serial.println("Publishing a message");
   Serial.println(message);
   client.publish(AWS_IOT_PUBLISH_TOPIC, jsonBuffer);
+}
+
+void awsSyncClient()
+{
   client.loop();
 }

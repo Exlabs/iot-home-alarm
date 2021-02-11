@@ -1,15 +1,16 @@
 #include "aws.h"
-#define ARMED_SIGNAL_PIN 2
-#define ALARM_SIGNAL_PIN 5
-#define SENSOR_INPUT_PIN 21
+
+const int armed_signal_pin = 2;
+const int alarm_signal_pin = 4;
+const int sensor_input_pin = 21;
 
 int previous_door_state = 0;
 
 
 void setup() {
-  pinMode(ARMED_SIGNAL_PIN, OUTPUT);
-  pinMode(ALARM_SIGNAL_PIN, OUTPUT);
-  pinMode(SENSOR_INPUT_PIN, INPUT);
+  pinMode(armed_signal_pin, OUTPUT);
+  pinMode(alarm_signal_pin, OUTPUT);
+  pinMode(sensor_input_pin, INPUT);
   Serial.begin(9600);
   
   awsConnect();
@@ -17,21 +18,25 @@ void setup() {
 
 void loop() {
   // Determine if doors are open
-  int door_opened = digitalRead(SENSOR_INPUT_PIN);
+  int door_opened = digitalRead(sensor_input_pin);
   
   // Control alarm led
-  digitalWrite(ALARM_SIGNAL_PIN, door_opened);  
+  digitalWrite(alarm_signal_pin, door_opened);  
   
   // Blink armed signal led
-  digitalWrite(ARMED_SIGNAL_PIN, HIGH);
+  digitalWrite(armed_signal_pin, HIGH);
   delay(100);
-  digitalWrite(ARMED_SIGNAL_PIN, LOW);
+  digitalWrite(armed_signal_pin, LOW);
   delay(100);
 
   if (!previous_door_state && door_opened) {
   
      awsPublishMessage("Door opened");
+     delay(1000);
   }
 
+  awsSyncClient();
+
   previous_door_state = door_opened;
+  
 }
