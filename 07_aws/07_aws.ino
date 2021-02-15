@@ -18,7 +18,7 @@ void setup() {
 
 void loop() {
   // Determine if doors are open
-  int door_opened = digitalRead(sensor_input_pin);
+  int door_opened = abs(1 - digitalRead(sensor_input_pin));
   
   // Control alarm led
   digitalWrite(alarm_signal_pin, door_opened);  
