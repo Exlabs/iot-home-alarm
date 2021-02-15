@@ -1,6 +1,6 @@
 # IOT Home Alarm
 
-This repo is a documentation of historical 1st IOT Workshops in the best [software company in Poland](Exlabs).
+This repo is a documentation of historical 1st IOT Workshops in the best [software company in Poland](https://exlabs.com/).
 
 We are going to implement a basic home alarm, which will buzz and send MQTT message to a broker when door/window is opened.
 
